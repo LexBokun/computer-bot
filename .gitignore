@@ -28,5 +28,9 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+bin/
+*.bkp
+/config/config.docker.yaml
+/config/config.local.yaml
