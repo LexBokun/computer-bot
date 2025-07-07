@@ -1,0 +1,37 @@
+version: v2
+managed:
+  enabled: true
+  disable:
+    - module: buf.build/protocolbuffers/go
+    - module: buf.build/googleapis/googleapis
+    - module: buf.build/grpc/go
+    - module: buf.build/bufbuild/protovalidate
+    - module: buf.build/grpc-ecosystem/grpc-gateway
+  override:
+    - file_option: go_package_prefix
+      value: wallet/pkg/api
+plugins:
+  - remote: buf.build/protocolbuffers/go
+    out: pkg/api
+    opt:
+      - paths=source_relative
+  - remote: buf.build/grpc/go
+    out: pkg/api
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false
+  - remote: buf.build/grpc-ecosystem/gateway
+    opt:
+      - generate_unbound_methods=false
+      - logtostderr=true
+      - paths=source_relative
+    out: pkg/api
+  - remote: buf.build/grpc-ecosystem/openapiv2
+    out: pkg/api
+    opt:
+      - generate_unbound_methods=false
+      - fqn_for_openapi_name=true
+  - local: protoc-gen-goclay
+    out: pkg/api
+    opt:
+      - paths=source_relative

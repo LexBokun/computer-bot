@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package agent.private.display.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Display"
+    description: "Display control"
+    version: "1.0"
+  }
+};
+
+service PrivateDisplayService {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    name: "Display"
+    description: "Display"
+  };
+
+  rpc List (ListRequest) returns (ListResponse){
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "Display"
+      description: "list displays"
+    };
+    option (google.api.http) = {get: "/v1/displays"};
+  }
+
+  rpc SetEnabled (SetEnabledRequest) returns (SetEnabledResponse){
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "Display"
+      description: "Switch display enable"
+    };
+    option (google.api.http) = {
+      post: "/v1/displays/set-enable"
+      body: "*"
+    };
+  };
+}
+
+message ListRequest {}
+
+message ListResponse {
+  repeated Display displays = 1;
+}
+
+message Display {
+  string id = 1;
+  string name = 2;
+  bool enable = 3;
+}
+
+message SetEnabledRequest {
+  string id = 1; // ID или имя монитора
+  bool enable = 2;
+}
+
+message SetEnabledResponse {}

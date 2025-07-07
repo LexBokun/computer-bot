@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: end-of-file-fixer
+  - repo: https://github.com/dnephin/pre-commit-golang
+    rev: v0.5.1
+    hooks:
+      - id: go-fmt
+      - id: go-mod-tidy
+      - id: golangci-lint
+  - repo: https://github.com/nametake/pre-commit-buf.git
+    rev: v2.0.0
+    hooks:
+      - id: buf-lint
+        args: [ .git#branch=master ]

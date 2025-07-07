@@ -1,0 +1,149 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Display",
+    "description": "Display control",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Display",
+      "description": "Display"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/displays": {
+      "get": {
+        "description": "list displays",
+        "operationId": "PrivateDisplayService_List",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/agent.private.display.v1.ListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "tags": [
+          "Display"
+        ]
+      }
+    },
+    "/v1/displays/set-enable": {
+      "post": {
+        "description": "Switch display enable",
+        "operationId": "PrivateDisplayService_SetEnabled",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/agent.private.display.v1.SetEnabledResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/agent.private.display.v1.SetEnabledRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Display"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "agent.private.display.v1.Display": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "agent.private.display.v1.ListResponse": {
+      "type": "object",
+      "properties": {
+        "displays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/agent.private.display.v1.Display"
+          }
+        }
+      }
+    },
+    "agent.private.display.v1.SetEnabledRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "ID или имя монитора"
+        },
+        "enable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "agent.private.display.v1.SetEnabledResponse": {
+      "type": "object"
+    },
+    "google.protobuf.Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "google.rpc.Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/google.protobuf.Any"
+          }
+        }
+      }
+    }
+  }
+}
